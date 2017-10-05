@@ -15,7 +15,12 @@ public class EDNODOLIST {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+    MyList <Contacto> Lista = new MyList(); 
+    Contacto a = new Contacto("10");
+    //Mi lista tiene apuntadores y es de tipo Nodo
+    Lista.insertFirst(a);
+    Lista.showList();
+      
     }
-    
 }
+

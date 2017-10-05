@@ -18,11 +18,14 @@ public class MyList <T> { //no me marca error porque el <T> me agarra cualquier 
     Node first;
     Node last;
     Node pointer;
+    int length;
     
     //constructor
     MyList() {
     first = null;
-    last = null;    
+    last = null;  
+    length = 0;
+ 
     }
     
     MyList (T d) {
@@ -31,6 +34,7 @@ public class MyList <T> { //no me marca error porque el <T> me agarra cualquier 
     last = node;
     node.next = null;
     pointer = null;
+    
     }
     
     //Métodos
@@ -49,7 +53,8 @@ public class MyList <T> { //no me marca error porque el <T> me agarra cualquier 
     else { //caso lista no está vacía, tiene elementos
     node.next= first;
     first = node; 
-    }
+    } 
+    length ++;
     }
     
     //INSERTAR FINAL
@@ -63,6 +68,7 @@ public class MyList <T> { //no me marca error porque el <T> me agarra cualquier 
     last.next = node;
     last = node;
     }
+    length ++;
     
     } // no estamos agarrando el valor, solo busca el valor en la memoria y lo apunta
     
@@ -76,8 +82,10 @@ public class MyList <T> { //no me marca error porque el <T> me agarra cualquier 
     else {   //Si la lista tiene mas de un elemento     //NO BORRAMOS, SOLO QUITAMOS DE LA REFERENCIA
     first = first.next;
     }
+    length --;
     }
     }
+   
     
     //ELIMINAR FINAL
     public void deleteLast (){
@@ -94,8 +102,10 @@ public class MyList <T> { //no me marca error porque el <T> me agarra cualquier 
     last.next = null;
     pointer = null; //a pointerlo quitamos de ahí
     }
+    length --;
     }  
     }
+    
     
     //BORRAR NODO
     
@@ -105,17 +115,17 @@ public class MyList <T> { //no me marca error porque el <T> me agarra cualquier 
     if (p.data == n) { //si es el primero o el único elemento de la lista
     deleteFirst(); //entonces borra el primero
     } else { //Si está dentro de la lista
-    p.next = p.next.next;  }
+    p.next = p.next.next;  
+    length --;
+    }
     return true; }
     return false;  }
     
-    
-    
+
     public Node fetch(T n){ //ACTIVIDAD COMPLETAR
     if (!isEmpty()) { //si no está vacía
     if (first == last){ //Si hay un solo elemento en la lista    
     if (first.data == n) //haremos que n sea el dato
-        
     return first; //regresame el valor en inicio
     } else { //si no...
     pointer = first;  //... el apuntador será igual al valor de first
@@ -129,11 +139,6 @@ public class MyList <T> { //no me marca error porque el <T> me agarra cualquier 
     } return null;
     }
 
-    
-    
-    
-    
-    
     public Node fetchBack (T n) { //un fetch debería darnos el elemento que buscamos y otro 'anterior' para borrar el dato anterior
     boolean finded = false;
     pointer = first;
@@ -149,21 +154,32 @@ public class MyList <T> { //no me marca error porque el <T> me agarra cualquier 
     return first; // es el valor que estoy buscando, regresalo
     }else { 
     pointer = first; //coloco en el puntero el primero
-    while (pointer.next != last) { //mientras que pointer no llegue al final de la lista, y mientras no lo encontremos
+    while (pointer.next != null) { //mientras que pointer no llegue al final de la lista, y mientras no lo encontremos
     if (pointer.next.data == n){ //entonces si el siguiente dato, es el que estoy buscando, regresalo
     return pointer; //regreso el puntero
     }
     pointer = pointer.next;     
     } //si llega al ultimo entonces ...
+    }
     }   
     }
-    } else {
     return null; // ... me regresa nulo
     }
-         
-        return null;   //checar esto, porque este RETURN no va aqui
+    
+
+    //MOSTRAR LISTA
+    public void showList() {
+        pointer= first;
+        System.out.print("first --> ");
+        for (int i=0; i< length; i++){
+            System.out.print("[" + pointer.data.toString() + "]"); //No queremos que mande a la direccion de memoria
+            pointer = pointer.next;
+        }
+        System.out.print(" <-- Last ");
+        System.out.println("");
+
     }
     
-    //MUESTRA LISTA 
+    
     
 }
